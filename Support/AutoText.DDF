@@ -1,0 +1,42 @@
+.OPTION EXPLICIT
+.Set Cabinet=off
+.Set Compress=off
+.Set MaxDiskSize=CDROM
+.Set ReservePerCabinetSize=6144
+.Set DiskDirectoryTemplate=".."
+.Set CompressionType=MSZIP
+.Set CompressionLevel=7
+.Set CompressionMemory=21
+.Set CabinetNameTemplate="AutoText.CAB"
+"Setup.Lst"
+"setup.exe"
+.Set Cabinet=on
+.Set Compress=on
+"AutoText.exe"
+"MSVBVM60.DLL"
+"OLEAUT32.DLL"
+"OLEPRO32.DLL"
+"ASYCFILT.DLL"
+"STDOLE2.TLB"
+"COMCAT.DLL"
+"MSWORD.OLB"
+"msjet40.dll"
+"msjter40.dll"
+"msjint40.dll"
+"vbajet32.dll"
+"expsrv.dll"
+"mswstr10.dll"
+"mswdat10.dll"
+"msrd2x40.dll"
+"msrd3x40.dll"
+"msrepl40.dll"
+"msjtes40.dll"
+"VB5DB.DLL"
+"MSBIND.DLL"
+"MSSTDFMT.DLL"
+"msdatlst.ocx"
+"richtx32.ocx"
+"RICHED32.DLL"
+"SETUP1.EXE"
+"VB6STKIT.DLL"
+"ST6UNST.EXE"
