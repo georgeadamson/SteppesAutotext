@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "msdatlst.ocx"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
+Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "AutoText"
@@ -142,7 +142,7 @@ Const conHwndTopmost = -1
 Const conHwndNoTopmost = -2
 Const conSwpNoActivate = &H10
 Const conSwpShowWindow = &H40
-Private Const ADODBconn As String = "Provider=SQLOLEDB;User ID=sa;Pwd=841241;Initial Catalog=Steppes;Data Source=SELSVR01;SERVER=SELSVR01;DATABASE=Steppes"
+Private Const ADODBconn As String = "Provider=SQLNCLI;User ID=SteppesCRM;Pwd=password;Initial Catalog=Steppes;Data Source=.;"
 'Private Const ADODBconn As String = "Provider=SQLOLEDB;User ID=sa;Pwd=x;Initial Catalog=Steppes;Data Source=.;SERVER=.;DATABASE=Steppes"
 
 Private Sub cmdInsert_Click()
