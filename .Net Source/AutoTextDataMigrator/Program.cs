@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace AutoText
+namespace AutoTextDataMigrator
 {
     static class Program
     {
@@ -15,7 +15,7 @@ namespace AutoText
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AutoText());
+            Application.Run(new AutoTextDataMigrator());
         }
     }
 }

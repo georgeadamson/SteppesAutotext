@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi' xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+<!-- 
+   - WiX Config file for building AutoText.msi
+   - Nick Casey <nickoil@hotmail.com> 2011-10-15 for Steppes Travel
+	 -
+	 - Note: ProductVersion must be updated for new version of msi to install over previous versions
+	 - this is done automatically by the batch file that runs the WiX compiler and linker
+	-->
+
+  <?define SkuName = "AutoText"?>
+  <?define ProductName="AutoText" ?>
+<?define ProductVersion="1.0.3" ?>  <!-- NMC This line is auto edited by the batch file DO NOT CHANGE IT MANUALLY -->
+  <?define UpgradeCode="3ecd5ff2-97f3-4a26-8097-2f8baf4dc600"?>
+  <?define Manufacturer="Steppes Travel"?>
+  <?define Title="Steppes AutoText"?>
+  <?define Description="Easy insertion of text from the Steppes database into Windows documents"?>
+  <?define Comments="By Nick Casey <nickoil@hotmail.com> for Steppes Travel"?>
+  <?define ProductCode="*"?>
+  <?define PackageCode="{????????-????-????-????-????????????}"?>
+	<?define RTMProductVersion="1.0.0" ?>
+	<?define CompanyFolderId="SteppesTravel"?>
+	<?define CompanyFolder="Steppes Travel"?>
+	<?define ProductFolder="AutoText"?>
+	
+	
+  <Product Id='$(var.ProductCode)'
+				Name='$(var.ProductName)'
+				Language='1033'
+				Version='$(var.ProductVersion)'
+				Codepage='1252'
+				Manufacturer='$(var.Manufacturer)'
+				UpgradeCode='$(var.UpgradeCode)'>
+	
+    <Package Id='*' 
+    		Keywords="$(var.Title)" 
+    		Description="$(var.Description)"
+      	Comments='$(var.Comments)' 
+      	Manufacturer='$(var.Manufacturer)'
+      	InstallerVersion='100' 
+      	InstallScope="perMachine"
+      	Languages='1033' 
+      	Compressed='yes' 
+      	SummaryCodepage='1252' />
+
+		<!-- To remove any UI remove this and the UIRef keys and the reference in the linker command line -->
+		<UI Id="WixUI_Minimal">
+					<TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+					<TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+					<TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+		
+					<Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+					<Property Id="WixUI_Mode" Value="Minimal" />
+		
+					<DialogRef Id="ErrorDlg" />
+					<DialogRef Id="FatalError" />
+					<DialogRef Id="FilesInUse" />
+					<DialogRef Id="MsiRMFilesInUse" />
+					<DialogRef Id="PrepareDlg" />
+					<DialogRef Id="ProgressDlg" />
+					<DialogRef Id="ResumeDlg" />
+					<DialogRef Id="UserExit" />
+		
+					<!-- This is the welcome dialog you specified
+					<DialogRef Id="WelcomeDlg" /> -->
+		
+					<!-- Hook the new welcome dialog to the next one in the stack
+					<Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="PrepareDlg">1</Publish> -->
+		
+					<Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+		
+					<Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+		
+					<Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+		
+					<Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+					<Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+					<Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
+					
+					
+					<Property Id="ARPNOMODIFY" Value="1" />
+		</UI>
+
+		<UIRef Id="WixUI_Common" />
+
+    <Media Id='1' Cabinet='$(var.SkuName)' EmbedCab='yes' />
+    
+    <Upgrade Id="$(var.UpgradeCode)">
+			<UpgradeVersion Minimum="$(var.ProductVersion)"
+					IncludeMinimum="no"
+					OnlyDetect="yes"
+					Language="1033"
+					Property="NEWPRODUCTFOUND" />
+
+			<UpgradeVersion Minimum="$(var.RTMProductVersion)"
+					IncludeMinimum="yes"
+					Maximum="$(var.ProductVersion)"
+					IncludeMaximum="no"
+					Language="1033"
+					Property="UPGRADEFOUND" />
+		</Upgrade>
+
+    
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='$(var.CompanyFolderId)' Name='$(var.CompanyFolder)'>
+          <Directory Id='INSTALLDIR' Name='$(var.ProductFolder)'>
+
+            <Component Id='MainExecutable' Guid='2deae243-930c-4a55-b300-72853a15a9b8'>
+              <File Id='$(var.ProductName)EXE' Name='$(var.ProductName).exe' DiskId='1' Source='$(var.ProductName).exe' KeyPath='yes'>
+                <Shortcut Id="startmenu$(var.ProductName)" Directory="ProgramMenuDir" Name="$(var.ProductName)" WorkingDirectory='INSTALLDIR' Icon="$(var.ProductName).exe" IconIndex="0" Advertise="yes" />
+                <Shortcut Id="desktop$(var.ProductName)" Directory="DesktopFolder" Name="$(var.ProductName)" WorkingDirectory='INSTALLDIR' Icon="$(var.ProductName).exe" IconIndex="0" Advertise="yes" />
+              </File>
+            </Component>
+
+            <Component Id='DatabaseLibrary' Guid='21e84760-f107-4895-8068-996ee47021bd'>
+              <File Id='DatabaseLibrary' Name='TSDatabase.dll' DiskId='1' Source='TSDatabase.dll' KeyPath='yes' />
+            </Component>
+            
+            <Component Id='ConfigFile' Guid='ccd93af5-4701-4c92-8f58-395f2d0f341f'>
+							<File Id='ConfigFile' Name='$(var.ProductName).exe.config' DiskId='1' Source='$(var.ProductName).exe.config' KeyPath='yes' />
+            </Component>
+
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="$(var.Manufacturer)">
+          <Component Id="ProgramMenuDir" Guid="79ff2412-a2c0-46b6-9ff5-c8f4b35be06e">
+            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <Feature Id='Complete' Level='1'>
+      <ComponentRef Id='MainExecutable' />
+      <ComponentRef Id='DatabaseLibrary' />
+      <ComponentRef Id='ConfigFile' />
+      <ComponentRef Id='ProgramMenuDir' />
+    </Feature>
+
+    <Icon Id="$(var.ProductName).exe" SourceFile="$(var.ProductName).exe" />
+    <Property Id="ARPPRODUCTICON" Value="$(var.ProductName).exe" />
+    
+		<Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="AutoText is now running in the top right corner of your screen." />
+    
+    <CustomAction Id="PreventDowngrading" Error="There is a newer version of $(var.ProductName) already installed." />
+    <CustomAction Id="LaunchApp" Directory="INSTALLDIR" ExeCommand="[SystemFolder]cmd.exe /C start $(var.ProductName).exe" />
+		
+		<InstallExecuteSequence>
+			<Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+			<RemoveExistingProducts After="InstallFinalize" />
+			<Custom Action="LaunchApp" After="InstallFinalize" >NOT Installed</Custom>
+		</InstallExecuteSequence>
+		
+		<PropertyRef Id="NETFRAMEWORK40CLIENT"/>
+
+		<Condition Message="This application requires .NET Framework 4.0 Client Profile. Please install the .NET Framework then run this installer again.">
+		    <![CDATA[Installed OR NETFRAMEWORK40CLIENT]]>
+		</Condition>
+		
+
+  </Product>
+</Wix>

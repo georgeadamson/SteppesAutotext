@@ -33,10 +33,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>autotext.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -44,18 +47,35 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TSDatabase, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Installer\TSDatabase.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoText.cs">
+    <Compile Include="AutoTextForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AutoText.Designer.cs">
-      <DependentUpon>AutoText.cs</DependentUpon>
+    <Compile Include="AutoTextForm.Designer.cs">
+      <DependentUpon>AutoTextForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComboItem.cs" />
+    <Compile Include="EditAutoTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditAutoTextForm.Designer.cs">
+      <DependentUpon>EditAutoTextForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AutoText.resx">
-      <DependentUpon>AutoText.cs</DependentUpon>
+    <Compile Include="SqlText.cs" />
+    <Compile Include="WinAPI.cs" />
+    <EmbeddedResource Include="AutoTextForm.resx">
+      <DependentUpon>AutoTextForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditAutoTextForm.resx">
+      <DependentUpon>EditAutoTextForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -65,7 +85,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -76,7 +98,28 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="autotext.ico" />
+    <Content Include="Resources\SteppesAutoText.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>IF NOT EXIST "$(ProjectDir)..\Installer" MKDIR  "$(ProjectDir)..\Installer"
+COPY "$(TargetPath)" "$(ProjectDir)\..\Installer\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AutoText")]
+[assembly: AssemblyTitle("AutoTextDataMigrator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("AutoText")]
+[assembly: AssemblyProduct("AutoTextDataMigrator")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b2ee96a7-4d96-4703-ac11-4e2497c51d90")]
+[assembly: Guid("5034069b-0e4a-434f-b747-5dc10cf2cbf8")]
 
 // Version information for an assembly consists of the following four values:
 //
