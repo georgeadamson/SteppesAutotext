@@ -50,7 +50,7 @@ rem This automatically copies the exe to the installation folder
 
  @ECHO Rebuilding the AutoText executable...
  @ECHO.
- MSBUILD "..\AutoText\AutoText.sln" /p:Configuration=Release /t:rebuild 
+ MSBUILD "..\AutoText.sln" /p:Configuration=Release /t:rebuild 
  
  IF ERRORLEVEL 1 GOTO FAILED_BUILDEXE  
 
