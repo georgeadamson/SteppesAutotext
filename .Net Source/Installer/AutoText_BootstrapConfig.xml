@@ -7,6 +7,11 @@
 		<BootstrapperFile Include="Microsoft.Windows.Installer.3.1">
 			<ProductName>Windows Installer 3.1</ProductName>
 		</BootstrapperFile>
+		
+		<BootstrapperFile Include="Windows.Imaging.Component">
+			<ProductName>Windows.Imaging.Component</ProductName>
+		</BootstrapperFile>
+		
 	</ItemGroup>
 
 	<Target Name="Bootstrapper">

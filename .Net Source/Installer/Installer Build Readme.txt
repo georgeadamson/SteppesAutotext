@@ -14,6 +14,10 @@ Required Files
 8) MSBuild.exe - for recompiling autotext.exe and creating bootstrapping setup.exe (makes sure that .Net framework and the Windows Installer are installed). 
 9) AutoText_BootstrapConfig.exe - Configuration file for gathering bootstrap files and building setup.exe
 10) AutoText_Setup.SED - Config for creating self-extracting document (collating setup and msi into single file).
+11) wic_bootstrapper_patch.exe - Adjustments to .Net bootstrapper for WIC (Windows Imaging Component).
+12) product.xml - Fix for WIC bootstrapper for 64 bit systems.
+
+
 
 
 
@@ -21,9 +25,15 @@ Build A Distribution File
 --------------------------
 
 a) Make sure required files are present and latest version of WiX is installed
-b) Edit AutoText_BuildInstaller.bat so that executables run from the correct WiX bin folder
-c) Edit AutoText.exe.config so that it contains the correct connection string for the live database
-c) Run AutoText_BuildInstaller.bat to build MSI files. This will:
+b) Run wic_bootstrapper_patch.exe and extract to 
+	64bit Windows: C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bootstrapper\Packages
+	32bit Windows: C:\Program Files\Microsoft SDKs\Windows\v7.0A\Bootstrapper\Packages
+c) Copy product.xml to correct folder:
+	64bit Windows: C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bootstrapper\Packages\Windows.Imaging.Component
+	32bit Windows: C:\Program Files\Microsoft SDKs\Windows\v7.0A\Bootstrapper\Packages\Windows.Imaging.Component
+c) Edit AutoText_BuildInstaller.bat so that executables run from the correct WiX bin folder
+d) Edit AutoText.exe.config so that it contains the correct connection string for the live database
+e) Run AutoText_BuildInstaller.bat to build MSI files. This will:
 	- rebuild the autotext executable, copying AutoText.exe into the Installer folder
 	- save the previous WiX config file (.wxs) with a timestamp extension
 	- change the version in the WiX config file so that it will overwrite previously installed versions
